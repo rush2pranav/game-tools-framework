@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="Plugin.DataDiff.Views.DataDiffView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#1A1A2E">
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="📊 Data Diff Tool" FontSize="20" FontWeight="Bold" 
+                   Foreground="#E0E0E0" Margin="0,0,0,4"/>
+        <TextBlock Grid.Row="0" Text="Compare two JSON or CSV config files and highlight differences"
+                   Foreground="#8892A0" FontSize="12" Margin="0,28,0,12"/>
+
+        <StackPanel Grid.Row="1" Margin="0,0,0,12">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                <Button x:Name="BtnFile1" Content="📄 File A (Original)" Click="BtnFile1_Click"
+                        Background="#0F3460" Foreground="White" Padding="14,8" BorderThickness="0" Cursor="Hand"/>
+                <TextBlock x:Name="TxtFile1" Text="No file selected" Foreground="#8892A0" 
+                           FontSize="12" VerticalAlignment="Center" Margin="12,0,0,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="BtnFile2" Content="📄 File B (Modified)" Click="BtnFile2_Click"
+                        Background="#0F3460" Foreground="White" Padding="14,8" BorderThickness="0" Cursor="Hand"/>
+                <TextBlock x:Name="TxtFile2" Text="No file selected" Foreground="#8892A0" 
+                           FontSize="12" VerticalAlignment="Center" Margin="12,0,0,0"/>
+            </StackPanel>
+        </StackPanel>
+
+        <ListView x:Name="DiffList" Grid.Row="2" Background="#161B22" BorderThickness="0"
+                  Foreground="#E0E0E0" Margin="0,0,0,8">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Change" Width="70">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ChangeIcon}" FontSize="14"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Key / Field" Width="200">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Key}" Foreground="#58A6FF" FontSize="12"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="File A Value" Width="200">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding OldValue}" Foreground="#F85149" FontSize="12"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="File B Value" Width="200">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding NewValue}" Foreground="#3FB950" FontSize="12"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <TextBlock x:Name="TxtSummary" Grid.Row="3" Text="Select two files to compare" 
+                   Foreground="#8892A0" FontSize="12"/>
+    </Grid>
+</UserControl>
